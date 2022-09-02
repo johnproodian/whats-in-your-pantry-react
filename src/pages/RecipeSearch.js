@@ -1,10 +1,11 @@
 import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 
 const RecipeSearch = () => {
     return (
-        <Container>
+        <Card bg="success">
             <Form>
             <Form.Group className="mb-3">
                 <Form.Label>What ingredients do you have on hand?</Form.Label>
@@ -17,7 +18,7 @@ const RecipeSearch = () => {
                 <div className="bg-light border">Second Ingredient</div>
                 <div className="bg-light border">Third Ingredient</div>
             </Stack>
-        </Container>
+        </Card>
         
     )
 };
