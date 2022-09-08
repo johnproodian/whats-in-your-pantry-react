@@ -6,11 +6,11 @@ import SearchResults from './pages/SearchResults';
 
 function App() {
   return (
-    <main>
+    <main className="App">
       <Header />
       <div>
-        <RecipeSearch></RecipeSearch>
-        <SearchResults></SearchResults>
+        {/* <RecipeSearch></RecipeSearch>
+        <SearchResults></SearchResults> */}
       </div>
     </main>
   );

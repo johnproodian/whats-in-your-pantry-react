@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 
 const Header = () => {
     return (
-        <Container fluid>
+        <Container fluid className="text-light">
             <div>
                 <h1>What's in Your Pantry?</h1>
                 <h2>Let us help you out.</h2>
