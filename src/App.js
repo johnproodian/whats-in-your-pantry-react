@@ -9,8 +9,9 @@ function App() {
     <main className="App">
       <Header />
       <div>
-        {/* <RecipeSearch></RecipeSearch>
-        <SearchResults></SearchResults> */}
+        {<RecipeSearch></RecipeSearch>
+        // <SearchResults></SearchResults> 
+      }
       </div>
     </main>
   );
