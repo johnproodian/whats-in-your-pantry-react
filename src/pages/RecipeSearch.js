@@ -3,12 +3,18 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RecipeSearch = () => {
-    let searchIngredients = [];
+    // figure out the best way to delete searchIngredients, and to update searchIngredients--do we need to use useState?
+    const [formState, setFormState] = useState('');
+    const [searchIngredients, setSearchIngredients] = useState([]);
+    let [loading, setLoading] = useState(true);
+    // let searchIngredients = [];
 
-    const [ formState, setFormState ] = useState('');
+    // useEffect(() => {
+    //     let isLoading = setIsLoading( () => setLoading())
+    // })
 
     const handleFormChange = (event) => {
         setFormState(event.target.value);
@@ -16,8 +22,19 @@ const RecipeSearch = () => {
 
     const handleAddIngredient = (event) => {
         event.preventDefault();
+        setLoading(true)
+        console.log(loading);
         const newIngredient = formState;
-    }
+        searchIngredients.push(newIngredient);
+        console.log(searchIngredients);
+        setLoading(false);
+        console.log(loading);
+    };
+
+    const deleteIngredients = () => {
+        searchIngredients.splice(0, searchIngredients.length);
+        console.log(searchIngredients);
+    };
 
     return (
         <Card bg="light" className="mx-3">
@@ -39,16 +56,24 @@ const RecipeSearch = () => {
                 {/* </div> */}
 
                 <div>
-                    <Stack gap={2}>
-                        {/* <div className="bg-light border">First Ingredient</div>
-                        <div className="bg-light border">Second Ingredient</div>
-                        <div className="bg-light border">Third Ingredient</div> */}
-                    </Stack>
-                    <div id="big-btn-container" className="w-75 d-flex flex-row">
-                        <div id="btn-container" className="m-3 d-flex flex-row justify-content-between">
-                            <Button className="ingredient-btn" id="clear-btn">Clear Ingredients</Button>
-                            <Button className="ingredient-btn" id="search-btn">Search Recipes</Button>
-                        </div>
+                    {loading ?
+                         (<Stack gap={2}>
+                            <div>Loading...</div>
+                        
+                            {/* <div className="bg-light border">First Ingredient</div>
+                            <div className="bg-light border">Second Ingredient</div>
+                            <div className="bg-light border">Third Ingredient</div> */}
+                        </Stack>)
+                    : 
+                        (<Stack gap={2}>
+                            {searchIngredients.map( (ingredient, index) => { return (
+                                <div className="bg-light border" key={index}>{ingredient}</div>)
+                            })}
+                        </Stack>)
+                    }
+                    <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-around">
+                        <Button className="ingredient-btn" id="clear-btn" onClick={deleteIngredients}>Clear Ingredients</Button>
+                        <Button className="ingredient-btn" id="search-btn">Search Recipes</Button>
                     </div>
                     
                 </div>
