@@ -3,10 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import SearchResults from '../components/RecipeList';
 
 const RecipeSearch = () => {
     const [formState, setFormState] = useState('');
     const [searchIngredients, setSearchIngredients] = useState([]);
+    const [recipes, setRecipes] = useState([]);
 
     const handleFormChange = (event) => {
         setFormState(event.target.value);
@@ -24,14 +26,14 @@ const RecipeSearch = () => {
     }
 
     const searchRecipes = () => {
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=c032a47155c24c00810c1214e2d4ad68&ingredients=apple`)
+        // let ingredients = searchIngredients.join();
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=c032a47155c24c00810c1214e2d4ad68&ingredients=${searchIngredients.join()}`)
             .then(res => res.json())
             .then(recipeData => {
-                console.log(recipeData);
+                setRecipes(recipeData);
+                console.log(recipes);
             })
     };
-
-
 
     return (
         <Card bg="light" className="mx-3">
@@ -63,6 +65,8 @@ const RecipeSearch = () => {
                     </div>
                     
                 </div>
+
+                <SearchResults recipeArray={recipes}  />
             
             </form>
         </Card>
