@@ -23,6 +23,16 @@ const RecipeSearch = () => {
         setSearchIngredients([]);
     }
 
+    const searchRecipes = () => {
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=c032a47155c24c00810c1214e2d4ad68&ingredients=apple`)
+            .then(res => res.json())
+            .then(recipeData => {
+                console.log(recipeData);
+            })
+    };
+
+
+
     return (
         <Card bg="light" className="mx-3">
             <form className="p-3 mb-3 d-flex flex-column" onSubmit={handleAddIngredient}>
@@ -49,7 +59,7 @@ const RecipeSearch = () => {
     
                     <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-around">
                         <Button className="ingredient-btn" id="clear-btn" onClick={deleteIngredients}>Clear Ingredients</Button>
-                        <Button className="ingredient-btn" id="search-btn">Search Recipes</Button>
+                        <Button className="ingredient-btn" id="search-btn" onClick={searchRecipes}>Search Recipes</Button>
                     </div>
                     
                 </div>
