@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import SearchResults from '../components/RecipeList';
+import SearchResults from '../components/SearchResults';
 
 const RecipeSearch = () => {
     const [formState, setFormState] = useState('');
