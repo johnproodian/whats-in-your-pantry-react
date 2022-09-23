@@ -5,11 +5,13 @@ import RecipeModal from '../RecipeModal';
 
 const SearchResults = ({ recipeArray }) => {
     const [showModal, setShowModal] = useState(false);
-    const [selectedRecipe, setSelectedRecipeID] = useState({});
-    
+    const [selectedRecipe, setSelectedRecipeID] = useState({title: "title", recipeID: "id"});
+
     const handleRecipeSelection = (event) => {
-        console.log(event.target.outerText);
+        console.log(event.target.id);
         setSelectedRecipeID({title: event.target.outerText, recipeID: event.target.id })
+        console.log(selectedRecipe);
+
         setShowModal(true);
     }
 
