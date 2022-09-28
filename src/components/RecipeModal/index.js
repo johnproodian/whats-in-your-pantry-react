@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react';
 
 const RecipeModal = ({ show, onHide, selectedRecipeInfo }) => {
     console.log(selectedRecipeInfo);
-    let { title, ingredientsArr, instructions } = selectedRecipeInfo;
- 
+    let { title, ingredientsArr, instructions, url } = selectedRecipeInfo;
+
     if (!selectedRecipeInfo || ingredientsArr.length === 0) {
         return;
     } else {
-        console.log(ingredientsArr);
+        const newInstructions = instructions.replace(/(<([^>]+)>)/gi, "");
+        console.log(newInstructions);
+
         return (
             <Modal show={show}>
                 <Modal.Header closeButton>
@@ -21,12 +23,13 @@ const RecipeModal = ({ show, onHide, selectedRecipeInfo }) => {
                     {/* <p>{instructions}</p> */}
                     <h2>Ingredients</h2>
                     <ul>
-                        {ingredientsArr.map(ingredient => { return (
-                            <li>{ingredient.original}</li>
+                        {ingredientsArr.map((ingredient, index) => { return (
+                            <li key={index}>{ingredient.original}</li>
                         )})}
                     </ul>
                     <h2>Instructions</h2>
-                    <p>{instructions}</p>
+                    <p>{newInstructions}</p>
+                    <a href={url} target="_blank">View Recipe at Original Site</a>
                 </Modal.Body>
                 <Button onClick={onHide}>Close</Button>
             </Modal>

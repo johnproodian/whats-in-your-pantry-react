@@ -13,7 +13,7 @@ const SearchResults = ({ recipeArray }) => {
             .then(res => res.json())
             .then(recipeInfo => {
                 console.log(recipeInfo);
-                setSelectedRecipeInfo({ title: recipeInfo.title, instructions: recipeInfo.instructions, ingredientsArr: recipeInfo.extendedIngredients})
+                setSelectedRecipeInfo({ title: recipeInfo.title, instructions: recipeInfo.instructions, ingredientsArr: recipeInfo.extendedIngredients, url: recipeInfo.sourceUrl})
             })
 
         setShowModal(true);
