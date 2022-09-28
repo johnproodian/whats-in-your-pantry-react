@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import SearchResults from '../components/SearchResults';
 
-const RecipeSearch = () => {
+const SearchPage = () => {
     const [formState, setFormState] = useState('');
     const [searchIngredients, setSearchIngredients] = useState([]);
     const [recipes, setRecipes] = useState([]);
@@ -27,7 +27,7 @@ const RecipeSearch = () => {
 
     const searchRecipes = () => {
         // let ingredients = searchIngredients.join();
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=c032a47155c24c00810c1214e2d4ad68&ingredients=${searchIngredients.join()}`)
+        fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e0b3280fa56415e8970fd1084f47dc8&ingredients=${searchIngredients.join()}`)
             .then(res => res.json())
             .then(recipeData => {
                 setRecipes(recipeData);
@@ -73,4 +73,4 @@ const RecipeSearch = () => {
     )
 };
 
-export default RecipeSearch;
+export default SearchPage;

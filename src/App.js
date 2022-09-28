@@ -1,15 +1,15 @@
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
-import RecipeSearch from './pages/RecipeSearch';
-import SearchResults from './pages/SearchResults';
+import SearchPage from './pages/SearchPage.js';
+// import SearchResults from './pages/SearchResults';
 
 function App() {
   return (
     <main className="App">
       <Header />
       <div>
-        {<RecipeSearch></RecipeSearch>
+        {<SearchPage></SearchPage>
         // <SearchResults></SearchResults> 
       }
       </div>

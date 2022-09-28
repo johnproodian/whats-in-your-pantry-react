@@ -5,12 +5,16 @@ import RecipeModal from '../RecipeModal';
 
 const SearchResults = ({ recipeArray }) => {
     const [showModal, setShowModal] = useState(false);
-    const [selectedRecipe, setSelectedRecipeID] = useState({title: "title", recipeID: "id"});
+    const [selectedRecipeInfo, setSelectedRecipeInfo] = useState({ingredientsArr: []});
 
     const handleRecipeSelection = (event) => {
         console.log(event.target.id);
-        setSelectedRecipeID({title: event.target.outerText, recipeID: event.target.id })
-        console.log(selectedRecipe);
+        fetch(`https://api.spoonacular.com/recipes/${event.target.id}/information?apiKey=0e0b3280fa56415e8970fd1084f47dc8`)
+            .then(res => res.json())
+            .then(recipeInfo => {
+                console.log(recipeInfo);
+                setSelectedRecipeInfo({ title: recipeInfo.title, instructions: recipeInfo.instructions, ingredientsArr: recipeInfo.extendedIngredients})
+            })
 
         setShowModal(true);
     }
@@ -28,7 +32,7 @@ const SearchResults = ({ recipeArray }) => {
                 <RecipeModal 
                     show={showModal} 
                     onHide={() => setShowModal(false)}
-                    selectedRecipe={selectedRecipe}
+                    selectedRecipeInfo={selectedRecipeInfo}
                 />
             </Card>
         )
