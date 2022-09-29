@@ -2,27 +2,33 @@ import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchResults from '../components/SearchResults';
 
 const SearchPage = () => {
     const [formState, setFormState] = useState('');
-    const [searchIngredients, setSearchIngredients] = useState([]);
+    const [searchIngredients, setSearchIngredients] = useState(JSON.parse(window.localStorage.getItem('pantry-ingredients')));
     const [recipes, setRecipes] = useState([]);
 
     const handleFormChange = (event) => {
         setFormState(event.target.value);
+        console.log('formState: ', formState);
     };
 
     const handleAddIngredient = (event) => {
         event.preventDefault();
-        const newIngredient = formState;
         setSearchIngredients([...searchIngredients, formState])
         setFormState('');
     };
 
+    useEffect(() => {
+        window.localStorage.setItem('pantry-ingredients', JSON.stringify(searchIngredients));
+        console.log(searchIngredients)
+    }, [searchIngredients])
+
     const deleteIngredients = () => {
         setSearchIngredients([]);
+        window.localStorage.removeItem('pantry-ingredients');
     }
 
     const searchRecipes = () => {
