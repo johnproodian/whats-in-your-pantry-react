@@ -72,7 +72,9 @@ const SearchPage = () => {
                     
                 </div>
 
-                <SearchResults recipeArray={recipes}  />
+                <SearchResults 
+                    recipeArray={recipes} 
+                    pageTitle={"We found some Recipes!:"}  />
             
             </form>
         </Card>
