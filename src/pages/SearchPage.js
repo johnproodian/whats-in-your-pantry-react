@@ -9,6 +9,7 @@ const SearchPage = () => {
     const [formState, setFormState] = useState('');
     const [searchIngredients, setSearchIngredients] = useState(JSON.parse(window.localStorage.getItem('pantry-ingredients')));
     const [recipes, setRecipes] = useState([]);
+    const [bigWindow, setBigWindow]  = useState(window.innerWidth > 715);
 
     const handleFormChange = (event) => {
         setFormState(event.target.value);
@@ -21,10 +22,19 @@ const SearchPage = () => {
         setFormState('');
     };
 
+    const updateWindow = () => {
+        setBigWindow(window.innerWidth > 715);
+    }
+
     useEffect(() => {
         window.localStorage.setItem('pantry-ingredients', JSON.stringify(searchIngredients));
         console.log(searchIngredients)
     }, [searchIngredients])
+
+    useEffect(() => {
+        window.addEventListener("resize", updateWindow);
+        return () => window.removeEventListener("resize", setBigWindow);
+    })
 
     const deleteIngredients = () => {
         setSearchIngredients([]);
@@ -55,19 +65,19 @@ const SearchPage = () => {
                         onChange={handleFormChange}
                         value={formState}>
                     </input>
-                    <Button type="submit" className="w-25 add-ingredient-btn">Add</Button>
+                    <Button type="submit" className="w-25 add-ingredient-btn">Add {bigWindow ? "Ingredients" : ""}</Button>
                 </div>
                
                 <div>
                     <Stack gap={2}>
                         {searchIngredients.map( (ingredient, index) => { return (
-                            <div className="bg-light border" key={index}>{ingredient}</div>)
+                            <div className="bg-primary text-light border mx-3 mt-2 p-2" key={index}>{ingredient}</div>)
                         })}
                     </Stack>
     
-                    <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-around">
-                        <Button className="ingredient-btn" id="clear-btn" onClick={deleteIngredients}>Clear Ingredients</Button>
-                        <Button className="ingredient-btn" id="search-btn" onClick={searchRecipes}>Search Recipes</Button>
+                    <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-start">
+                        <Button className="ingredient-btn" id="clear-btn" onClick={deleteIngredients}>Clear {bigWindow ? "Ingredients" : ""}</Button>
+                        <Button className="ingredient-btn" id="search-btn" onClick={searchRecipes}>Search {bigWindow ? "Recipes" : ""}</Button>
                     </div>
                     
                 </div>
