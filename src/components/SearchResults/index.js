@@ -67,7 +67,7 @@ if (recipeArray.length > 0) {
                                     className="d-flex flex-row justify-content-between"
                                     onClick={pageTitle === "We found some Recipes!:" ? handleSave : handleDelete}
                                 >
-                                    Save for Later
+                                    {pageTitle === "We found some Recipes!:" ? "Save for Later" : "Delete"}
                                 </Button>
                             </li>
                         )})} 
