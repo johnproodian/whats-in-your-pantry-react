@@ -7,7 +7,7 @@ import SearchResults from '../components/SearchResults';
 
 const SearchPage = () => {
     const [formState, setFormState] = useState('');
-    const [searchIngredients, setSearchIngredients] = useState(JSON.parse(window.localStorage.getItem('pantry-ingredients')));
+    const [searchIngredients, setSearchIngredients] = useState(JSON.parse(window.localStorage.getItem('pantry-ingredients')) || []);
     const [recipes, setRecipes] = useState([]);
     const [bigWindow, setBigWindow]  = useState(window.innerWidth > 715);
 
@@ -52,7 +52,11 @@ const SearchPage = () => {
     };
 
     return (
-        <Card bg="light" className="mx-3">
+        <Card 
+            bg="light" 
+            className="mx-3"
+            bigWindow={bigWindow}
+        >
             <form className="p-3 mb-3 d-flex flex-column" onSubmit={handleAddIngredient}>
                 <label className="mx-3 input-label">What ingredients do you have on hand?</label>
                 <div id="input-container" className="d-flex flex-row">
@@ -72,7 +76,8 @@ const SearchPage = () => {
                     <Stack gap={2}>
                         {searchIngredients.map( (ingredient, index) => { return (
                             <div className="bg-primary text-light border mx-3 mt-2 p-2" key={index}>{ingredient}</div>)
-                        })}
+                            })
+                        }
                     </Stack>
     
                     <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-start">

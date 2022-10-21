@@ -35,6 +35,7 @@ const SearchResults = ({ recipeArray, setSavedArr, pageTitle }) => {
         window.localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
     }
 
+
 if (recipeArray.length > 0) {
     const handleDelete = (event) => {
         console.log(event.target.parentNode.getAttribute('data-key'));
@@ -52,7 +53,7 @@ if (recipeArray.length > 0) {
                     <ul>
                         {recipeArray.map( ({ title, id }, index) => { return (
                             <li 
-                                className="bg-light border d-flex justify-content-around" 
+                                className="bg-light border d-flex justify-content-between" 
                                 key={ index } 
                                 id={id}
                                 data-key={index}
@@ -67,7 +68,7 @@ if (recipeArray.length > 0) {
                                     className="d-flex flex-row justify-content-between"
                                     onClick={pageTitle === "We found some Recipes!:" ? handleSave : handleDelete}
                                 >
-                                    {pageTitle === "We found some Recipes!:" ? "Save for Later" : "Delete"}
+                                    {pageTitle === "We found some Recipes!:" ? "Save" : "Delete"}
                                 </Button>
                             </li>
                         )})} 
