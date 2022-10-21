@@ -40,8 +40,10 @@ if (recipeArray.length > 0) {
     const handleDelete = (event) => {
         console.log(event.target.parentNode.getAttribute('data-key'));
         let lsRecipes = JSON.parse(window.localStorage.getItem('saved-recipes')); 
-        lsRecipes.splice(event.target.parentNode.getAttribute('data-key'), 1)
-        setSavedArr(lsRecipes);
+        console.log(lsRecipes);
+        lsRecipes.splice(event.target.parentNode.getAttribute('data-key'), 1);
+        console.log(lsRecipes);
+        localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
         window.localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
     }
 
