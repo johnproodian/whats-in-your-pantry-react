@@ -18,8 +18,13 @@ const SearchPage = () => {
 
     const handleAddIngredient = (event) => {
         event.preventDefault();
+
+        if (!formState) {
+            throw new Error("Nothing was typed into the input to add as an ingredient")
+        }
         setSearchIngredients([...searchIngredients, formState])
         setFormState('');
+
     };
 
     const updateWindow = () => {
@@ -46,9 +51,13 @@ const SearchPage = () => {
         fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=0e0b3280fa56415e8970fd1084f47dc8&ingredients=${searchIngredients.join()}`)
             .then(res => res.json())
             .then(recipeData => {
+                if (recipeData.length === 0) {
+                    throw new Error("No recipes found with those ingredients.")
+                }
                 setRecipes(recipeData);
                 console.log(recipes);
             })
+            .catch(err => alert("No recipes found with those ingredients. Add different ingredients and try again!"));
     };
 
     return (
