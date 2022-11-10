@@ -20,6 +20,7 @@ const SearchPage = () => {
         event.preventDefault();
 
         if (!formState) {
+            alert("Please enter an ingredient to add it to the ingredient search list!")
             throw new Error("Nothing was typed into the input to add as an ingredient")
         }
         setSearchIngredients([...searchIngredients, formState])
@@ -56,6 +57,7 @@ const SearchPage = () => {
                 }
                 setRecipes(recipeData);
                 console.log(recipes);
+
             })
             .catch(err => alert("No recipes found with those ingredients. Add different ingredients and try again!"));
     };
@@ -78,7 +80,7 @@ const SearchPage = () => {
                         onChange={handleFormChange}
                         value={formState}>
                     </input>
-                    <Button type="submit" className="w-25 add-ingredient-btn">Add {bigWindow ? "Ingredients" : ""}</Button>
+                    <Button type="submit" className="w-25 add-ingredient-btn bg-success">Add {bigWindow ? "Ingredients" : ""}</Button>
                 </div>
                
                 <div>
@@ -90,8 +92,8 @@ const SearchPage = () => {
                     </Stack>
     
                     <div id="big-btn-container" className="w-75 d-flex flex-row justify-content-start">
-                        <Button className="ingredient-btn" id="clear-btn" onClick={deleteIngredients}>Clear {bigWindow ? "Ingredients" : ""}</Button>
-                        <Button className="ingredient-btn" id="search-btn" onClick={searchRecipes}>Search {bigWindow ? "Recipes" : ""}</Button>
+                        <Button className="ingredient-btn bg-danger" id="clear-btn" onClick={deleteIngredients}>Clear {bigWindow ? "Ingredients" : ""}</Button>
+                        <Button className="ingredient-btn bg-success" id="search-btn" onClick={searchRecipes}>Search {bigWindow ? "Recipes" : ""}</Button>
                     </div>
                     
                 </div>

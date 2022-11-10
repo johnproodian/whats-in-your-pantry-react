@@ -2,12 +2,22 @@ import Card from 'react-bootstrap/Card';
 import Stack from 'react-bootstrap/Stack';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import { Router, Link } from 'react-router-dom';
 import RecipeModal from '../RecipeModal';
 
 const SearchResults = ({ recipeArray, setSavedArr, pageTitle }) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedRecipeInfo, setSelectedRecipeInfo] = useState({ingredientsArr: []});
     console.log(pageTitle);
+
+    const updateSaveDelBtn = () => {
+        const saveDelClass = "d-flex flex-row justify-content-between"
+        if (pageTitle === "Saved Recipes") {
+            return saveDelClass + " bg-success";
+        } else {
+            return saveDelClass + " bg-danger";
+        }
+    };
     
 
     const handleRecipeSelection = (event) => {
@@ -36,16 +46,18 @@ const SearchResults = ({ recipeArray, setSavedArr, pageTitle }) => {
     }
 
 
-if (recipeArray.length > 0) {
-    const handleDelete = (event) => {
-        console.log(event.target.parentNode.getAttribute('data-key'));
-        let lsRecipes = JSON.parse(window.localStorage.getItem('saved-recipes')); 
-        console.log(lsRecipes);
-        lsRecipes.splice(event.target.parentNode.getAttribute('data-key'), 1);
-        console.log(lsRecipes);
-        localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
-        window.localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
-    }
+    if (recipeArray.length > 0) {
+        const handleDelete = (event) => {
+            console.log(event.target.parentNode.getAttribute('data-key'));
+            let lsRecipes = JSON.parse(window.localStorage.getItem('saved-recipes')); 
+            console.log(lsRecipes);
+            lsRecipes.splice(event.target.parentNode.getAttribute('data-key'), 1);
+            console.log(lsRecipes);
+            localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
+            window.localStorage.setItem('saved-recipes', JSON.stringify(lsRecipes));
+            console.log('e.t: ', event.target.classList);
+            event.target.classList.replace('btn-danger', 'btn-outline-danger')
+        }
 
 
         return (
@@ -60,14 +72,14 @@ if (recipeArray.length > 0) {
                                 id={id}
                                 data-key={index}
                             >
-                                <a  
+                                <Link to=""
                                     onClick={handleRecipeSelection}
-                                a>
+                                >
                                     { title }
-                                </a>
+                                </Link>
                                 <Button 
                                     size="sm" 
-                                    className="d-flex flex-row justify-content-between"
+                                    variant={pageTitle === "We found some Recipes!:" ? "success" : "danger"}
                                     onClick={pageTitle === "We found some Recipes!:" ? handleSave : handleDelete}
                                 >
                                     {pageTitle === "We found some Recipes!:" ? "Save" : "Delete"}
